@@ -60,8 +60,8 @@ class Encoder(nn.Module):
         """
         # Encode observed Trajectory
         batch = obs_traj.size(1)
-        obs_traj_embedding = self.spatial_embedding(obs_traj.view(-1, 2))
-        obs_traj_embedding = obs_traj_embedding.view(
+        obs_traj_embedding = self.spatial_embedding(obs_traj.reshape(-1, 2))
+        obs_traj_embedding = obs_traj_embedding.reshape(
             -1, batch, self.embedding_dim
         )
         state_tuple = self.init_hidden(batch)
@@ -422,7 +422,9 @@ class TrajectoryGenerator(nn.Module):
                 grid_size=grid_size
             )
 
-        if self.noise_dim[0] == 0:
+        if self.noise_dim==None:
+            pass
+        elif self.noise_dim[0] == 0:
             self.noise_dim = None
         else:
             self.noise_first_dim = noise_dim[0]
