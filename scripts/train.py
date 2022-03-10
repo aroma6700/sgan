@@ -35,14 +35,14 @@ parser.add_argument('--pred_len', default=8, type=int)
 parser.add_argument('--skip', default=1, type=int)
 
 # Optimization
-parser.add_argument('--batch_size', default=32, type=int)
+parser.add_argument('--batch_size', default=64, type=int)
 parser.add_argument('--num_iterations', default=10000, type=int)
 parser.add_argument('--num_epochs', default=10, type=int)
 
 # Model Options
 parser.add_argument('--embedding_dim', default=64, type=int)
 parser.add_argument('--num_layers', default=1, type=int)
-parser.add_argument('--dropout', default=0.2, type=float)
+parser.add_argument('--dropout', default=0, type=float)
 parser.add_argument('--batch_norm', default=0, type=bool_flag)
 parser.add_argument('--mlp_dim', default=1024, type=int)
 
@@ -65,7 +65,7 @@ parser.add_argument('--bottleneck_dim', default=1024, type=int)
 
 # Social Pooling Options
 parser.add_argument('--neighborhood_size', default=2.0, type=float)
-parser.add_argument('--grid_size', default=4, type=int)
+parser.add_argument('--grid_size', default=8, type=int)
 
 # Discriminator Options
 parser.add_argument('--d_type', default='local', type=str)
