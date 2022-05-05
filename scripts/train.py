@@ -4,6 +4,7 @@ import logging
 import os
 import sys
 import time
+from csv import writer
 
 from collections import defaultdict
 
@@ -284,7 +285,7 @@ def main(args):
                 checkpoint['losses_ts'].append(t)
 
             # Maybe save a checkpoint
-            if t > 0 and t % args.checkpoint_every == 0:
+            if t > 0 and t % 15 == 0:
                 checkpoint['counters']['t'] = t
                 checkpoint['counters']['epoch'] = epoch
                 checkpoint['sample_ts'].append(t)
@@ -524,6 +525,13 @@ def check_accuracy(
 
     metrics['ade'] = sum(disp_error) / (total_traj * args.pred_len)
     metrics['fde'] = sum(f_disp_error) / total_traj
+
+    data = [metrics['ade'],metrics['fde']]
+    with open('scripts/results.csv', 'a') as f_object:
+        writer_object = writer(f_object)
+        writer_object.writerow(data)
+        f_object.close()
+
     if total_traj_l != 0:
         metrics['ade_l'] = sum(disp_error_l) / (total_traj_l * args.pred_len)
         metrics['fde_l'] = sum(f_disp_error_l) / total_traj_l
